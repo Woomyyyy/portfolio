@@ -1,38 +1,87 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
 
 const Hero = () => {
+  const [isWaving, setIsWaving] = useState(false);
+
   // Animation variants for the wave emoji
   const waveAnimation: Variants = {
-    animate: {
+    initial: { rotate: 0 },
+    wave: {
       rotate: [0, 14, -8, 14, 0],
       transition: {
         duration: 1.5,
-        repeat: Infinity,
-        repeatType: "loop" as const,
+        repeat: 0,
         ease: "easeInOut",
-        repeatDelay: 1
+      }
+    },
+    hover: {
+      rotate: [0, 14, -8, 14, 0],
+      transition: {
+        duration: 1.5,
+        repeat: 0,
+        ease: "easeInOut",
+      }
+    }
+  };
+
+  // Decorative elements animation
+  const decorativeAnimation: Variants = {
+    initial: { opacity: 0, scale: 0 },
+    animate: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { 
+        duration: 0.8,
+        delay: 1.2
       }
     }
   };
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen py-16 px-4 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="max-w-4xl mx-auto text-center">
+    <section className="relative flex flex-col items-center justify-center min-h-screen py-16 px-4 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+      {/* Decorative elements */}
+      <motion.div 
+        className="absolute top-20 right-[10%] w-24 h-24 rounded-full bg-yellow-100 dark:bg-yellow-900/20 blur-xl"
+        variants={decorativeAnimation}
+        initial="initial"
+        animate="animate"
+      />
+      <motion.div 
+        className="absolute bottom-20 left-[15%] w-32 h-32 rounded-full bg-blue-100 dark:bg-blue-900/20 blur-xl"
+        variants={decorativeAnimation}
+        initial="initial"
+        animate="animate"
+        transition={{ delay: 1.4 }}
+      />
+      <motion.div 
+        className="absolute top-1/3 left-[5%] w-16 h-16 rounded-full bg-pink-100 dark:bg-pink-900/20 blur-xl"
+        variants={decorativeAnimation}
+        initial="initial"
+        animate="animate"
+        transition={{ delay: 1.6 }}
+      />
+
+      <div className="max-w-4xl mx-auto text-center z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300">
+          <h1 className="font-['Playfair_Display',_serif] text-5xl md:text-7xl font-bold mb-4 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300">
             hi saif here 
             <motion.span 
               className="text-yellow-400 inline-block ml-2"
               variants={waveAnimation}
-              animate="animate"
+              initial="initial"
+              animate="wave"
+              whileHover="hover"
+              onHoverStart={() => setIsWaving(true)}
+              onHoverEnd={() => setIsWaving(false)}
+              onAnimationComplete={() => setIsWaving(false)}
             >
               👋
             </motion.span>
@@ -44,7 +93,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h2 className="text-xl md:text-2xl mb-6 font-light text-gray-600 dark:text-gray-300 tracking-wide">
+          <h2 className="font-['Montserrat',_sans-serif] text-xl md:text-2xl mb-6 font-light text-gray-600 dark:text-gray-300 tracking-wide">
             18-year-old aspiring software developer from Egypt 🇪🇬
           </h2>
         </motion.div>
@@ -54,7 +103,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <p className="text-lg mb-10 max-w-2xl mx-auto text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p className="font-['Inter',_sans-serif] text-lg mb-10 max-w-2xl mx-auto text-gray-600 dark:text-gray-300 leading-relaxed">
             I love building web applications with modern technologies. Currently exploring the world of full-stack development and always eager to learn new things.
           </p>
         </motion.div>
@@ -133,6 +182,9 @@ const Hero = () => {
           ))}
         </motion.div>
       </div>
+
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none"></div>
     </section>
   );
 };
