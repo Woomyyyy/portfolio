@@ -11,77 +11,68 @@ const Hero = () => {
   const waveAnimation: Variants = {
     initial: { rotate: 0 },
     wave: {
-      rotate: [0, 14, -8, 14, 0],
+      rotate: [0, 15, -10, 15, 0],
       transition: {
-        duration: 1.5,
-        repeat: 0,
-        ease: "easeInOut",
-      }
-    },
-    hover: {
-      rotate: [0, 14, -8, 14, 0],
-      transition: {
-        duration: 1.5,
-        repeat: 0,
+        duration: 1.2,
         ease: "easeInOut",
       }
     }
   };
 
-  // Decorative elements animation
-  const decorativeAnimation: Variants = {
-    initial: { opacity: 0, scale: 0 },
-    animate: { 
-      opacity: 1, 
-      scale: 1,
-      transition: { 
-        duration: 0.8,
-        delay: 1.2
+  // Text animation variants
+  const textVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.1 * i,
+        duration: 0.6,
+        ease: "easeOut"
       }
-    }
+    })
   };
 
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-screen py-16 px-4 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 overflow-hidden">
-      {/* Decorative elements */}
+    <section className="relative flex flex-col items-center justify-center min-h-screen py-16 px-4 bg-black text-white overflow-hidden">
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-black opacity-80"></div>
+      
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+      
+      {/* Accent color blobs */}
       <motion.div 
-        className="absolute top-20 right-[10%] w-24 h-24 rounded-full bg-yellow-100 dark:bg-yellow-900/20 blur-xl"
-        variants={decorativeAnimation}
-        initial="initial"
-        animate="animate"
+        className="absolute top-1/4 right-[15%] w-64 h-64 rounded-full bg-blue-500/10 blur-3xl"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 2, delay: 0.2 }}
       />
       <motion.div 
-        className="absolute bottom-20 left-[15%] w-32 h-32 rounded-full bg-blue-100 dark:bg-blue-900/20 blur-xl"
-        variants={decorativeAnimation}
-        initial="initial"
-        animate="animate"
-        transition={{ delay: 1.4 }}
-      />
-      <motion.div 
-        className="absolute top-1/3 left-[5%] w-16 h-16 rounded-full bg-pink-100 dark:bg-pink-900/20 blur-xl"
-        variants={decorativeAnimation}
-        initial="initial"
-        animate="animate"
-        transition={{ delay: 1.6 }}
+        className="absolute bottom-1/4 left-[10%] w-80 h-80 rounded-full bg-purple-500/10 blur-3xl"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 2, delay: 0.5 }}
       />
 
-      <div className="max-w-4xl mx-auto text-center z-10">
+      <div className="relative z-10 max-w-4xl mx-auto text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial="hidden"
+          animate="visible"
+          custom={0}
+          variants={textVariants}
+          className="mb-6"
         >
-          <h1 className="font-['Playfair_Display',_serif] text-5xl md:text-7xl font-bold mb-4 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300">
+          <h1 className="font-['Playfair_Display',_serif] text-5xl md:text-7xl font-bold tracking-tight">
             hi saif here 
             <motion.span 
               className="text-yellow-400 inline-block ml-2"
-              variants={waveAnimation}
               initial="initial"
-              animate="wave"
-              whileHover="hover"
+              animate={isWaving ? "wave" : "initial"}
+              variants={waveAnimation}
               onHoverStart={() => setIsWaving(true)}
-              onHoverEnd={() => setIsWaving(false)}
-              onAnimationComplete={() => setIsWaving(false)}
+              onHoverEnd={() => setTimeout(() => setIsWaving(false), 1000)}
+              whileHover={{ scale: 1.1 }}
             >
               👋
             </motion.span>
@@ -89,44 +80,59 @@ const Hero = () => {
         </motion.div>
         
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          initial="hidden"
+          animate="visible"
+          custom={1}
+          variants={textVariants}
+          className="mb-8"
         >
-          <h2 className="font-['Montserrat',_sans-serif] text-xl md:text-2xl mb-6 font-light text-gray-600 dark:text-gray-300 tracking-wide">
+          <h2 className="font-['Montserrat',_sans-serif] text-xl md:text-2xl font-light text-gray-300 tracking-wide">
             18-year-old aspiring software developer from Egypt 🇪🇬
           </h2>
         </motion.div>
         
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          initial="hidden"
+          animate="visible"
+          custom={2}
+          variants={textVariants}
+          className="mb-12"
         >
-          <p className="font-['Inter',_sans-serif] text-lg mb-10 max-w-2xl mx-auto text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p className="font-['Inter',_sans-serif] text-lg max-w-2xl mx-auto text-gray-400 leading-relaxed">
             I love building web applications with modern technologies. Currently exploring the world of full-stack development and always eager to learn new things.
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="mb-16"
+          initial="hidden"
+          animate="visible"
+          custom={3}
+          variants={textVariants}
+          className="mb-16 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <motion.button 
-            className="bg-black text-white dark:bg-white dark:text-black px-8 py-4 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="bg-white text-black px-8 py-4 rounded-lg font-medium transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transform hover:-translate-y-1"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Ask me anything
           </motion.button>
+          
+          <motion.a
+            href="#projects"
+            className="px-8 py-4 rounded-lg font-medium border border-gray-700 hover:border-gray-500 transition-all"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            View my work
+          </motion.a>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
+          initial="hidden"
+          animate="visible"
+          custom={4}
+          variants={textVariants}
           className="flex justify-center space-x-8"
         >
           {[
@@ -166,15 +172,9 @@ const Hero = () => {
             <motion.a 
               key={item.name}
               href="#" 
-              className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
-              whileHover={{ scale: 1.2, rotate: 5 }}
+              className="text-gray-400 hover:text-white transition-colors"
+              whileHover={{ scale: 1.2, y: -5 }}
               whileTap={{ scale: 0.9 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ 
-                opacity: 1, 
-                y: 0,
-                transition: { delay: 0.8 + (index * 0.1) } 
-              }}
             >
               <span className="sr-only">{item.name}</span>
               {item.icon}
@@ -182,9 +182,6 @@ const Hero = () => {
           ))}
         </motion.div>
       </div>
-
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none"></div>
     </section>
   );
 };
