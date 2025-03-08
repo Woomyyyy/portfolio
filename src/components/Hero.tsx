@@ -96,7 +96,7 @@ const Hero = () => {
           className="mb-5"
         >
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-            hi saif here 
+            hi, saif here 
             <motion.span 
               className="inline-block ml-2"
               initial="initial"
@@ -143,7 +143,7 @@ const Hero = () => {
           className="mb-10"
         >
           <p className="text-muted-foreground max-w-md">
-            I love building web applications with modern technologies. Currently exploring the world of full-stack development and always eager to learn new things.
+          I design digital experiences, obsess over color palettes, and write documentation at 3 AM when my best ideas mysteriously appear.
           </p>
         </motion.div>
         
