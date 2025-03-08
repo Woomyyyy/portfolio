@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Developer Portfolio
+
+A clean, modern, and responsive portfolio website built with Next.js and Tailwind CSS. This portfolio is designed to showcase your skills, projects, and professional background to potential employers.
+
+## Features
+
+- Responsive design that looks great on all devices
+- Dark mode support
+- Clean and intuitive user interface
+- Optimized for performance and SEO
+- Easy to customize and extend
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18.17 or later
+
+### Installation
+
+1. Clone this repository or download the files
+2. Navigate to the project directory
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Customization
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Personal Information
 
-## Learn More
+1. Update your name, title, and bio in the `Hero.tsx` and `About.tsx` components
+2. Replace the placeholder profile image with your own in the `public` directory
+3. Update your contact information in the `Contact.tsx` component
+4. Add your social media links in the `Footer.tsx` component
 
-To learn more about Next.js, take a look at the following resources:
+### Projects
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Edit the projects array in `Projects.tsx` to showcase your own work:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```typescript
+const projects: Project[] = [
+  {
+    id: 1,
+    title: 'Your Project Title',
+    description: 'Description of your project',
+    technologies: ['Tech1', 'Tech2', 'Tech3'],
+    imageUrl: '/your-project-image.jpg',
+    liveUrl: 'https://your-project-url.com',
+    githubUrl: 'https://github.com/yourusername/your-project',
+    featured: true,
+  },
+  // Add more projects...
+];
+```
 
-## Deploy on Vercel
+### Skills
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Modify the skills array in `Skills.tsx` to reflect your own skills and proficiency levels:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```typescript
+const skills: Skill[] = [
+  { name: 'Your Skill', level: 4, category: 'frontend' },
+  // Add more skills...
+];
+```
+
+### Resume
+
+Replace the placeholder `resume.pdf` in the `public` directory with your own resume.
+
+## Deployment
+
+This portfolio can be easily deployed to Vercel:
+
+1. Push your code to a GitHub repository
+2. Go to [Vercel](https://vercel.com) and sign up/login
+3. Click "New Project" and import your repository
+4. Follow the prompts to deploy your site
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## Acknowledgments
+
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React](https://reactjs.org/)
