@@ -41,37 +41,43 @@ const WorkEducation = () => {
   ];
 
   return (
-    <section className="py-16">
+    <section className="py-20" id="experience">
       <div className="container-width">
-        <h2 className="text-2xl font-bold mb-8">WorkEducation</h2>
+        <h2 className="text-2xl font-bold mb-10">Work & Education</h2>
         
-        <div className="space-y-8">
+        <div className="space-y-12">
           {experiences.map((exp, index) => (
             <motion.div 
               key={index}
-              className="timeline-item"
+              className="timeline-item group"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-100px" }}
             >
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-secondary flex items-center justify-center font-bold">
+              <div className="flex gap-5">
+                <motion.div 
+                  className="flex-shrink-0 w-8 h-8 rounded-full bg-secondary flex items-center justify-center font-bold shadow-sm group-hover:shadow-md transition-all"
+                  whileHover={{ scale: 1.1 }}
+                >
                   {exp.letter}
-                </div>
+                </motion.div>
                 <div>
-                  <div className="text-sm text-muted-foreground mb-1">
+                  <div className="text-sm text-muted-foreground mb-1 font-light">
                     {exp.period}
                   </div>
-                  <h3 className="text-lg font-bold">
+                  <motion.h3 
+                    className="text-lg font-bold group-hover:text-primary transition-colors"
+                    whileHover={{ x: 2 }}
+                  >
                     {exp.company}
-                  </h3>
-                  <div className="text-muted-foreground mb-2">
+                  </motion.h3>
+                  <div className="text-muted-foreground mb-3 font-medium">
                     {exp.position}
                   </div>
-                  <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                  <ul className="list-disc list-outside ml-4 text-sm text-muted-foreground space-y-1.5">
                     {exp.description.map((item, i) => (
-                      <li key={i}>{item}</li>
+                      <li key={i} className="group-hover:text-foreground/80 transition-colors">{item}</li>
                     ))}
                   </ul>
                 </div>

@@ -55,8 +55,13 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: 'Inter', Arial, Helvetica, sans-serif;
+  letter-spacing: -0.011em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Subtle background grid pattern */
 .bg-grid-pattern {
   background-image: 
     linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
@@ -74,17 +79,18 @@ body {
 /* Container width for consistent layout */
 .container-width {
   width: 100%;
-  max-width: 768px;
+  max-width: 680px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 /* Typography styles */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 h1 {
@@ -103,6 +109,36 @@ p {
   line-height: 1.6;
 }
 
+/* Refined link styling */
+a {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* Subtle underline animation for links */
+.animated-underline {
+  position: relative;
+}
+
+.animated-underline::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.animated-underline:hover::after {
+  width: 100%;
+}
+
 /* Tag styling for project technologies */
 .tag {
   display: inline-block;
@@ -114,6 +150,11 @@ p {
   color: var(--secondary-foreground);
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  transform: translateY(-1px);
 }
 
 /* Timeline styling */
@@ -132,6 +173,11 @@ p {
   height: 0.75rem;
   border-radius: 50%;
   background-color: var(--primary);
+  transition: transform 0.2s ease;
+}
+
+.timeline-item:hover::before {
+  transform: scale(1.2);
 }
 
 .timeline-item::after {
@@ -146,4 +192,51 @@ p {
 
 .timeline-item:last-child::after {
   display: none;
+}
+
+/* Subtle hover effects */
+.hover-lift {
+  transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Button styling */
+button {
+  transition: all 0.2s ease;
+}
+
+/* Subtle scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  opacity: 0.5;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+  opacity: 0.8;
+}
+
+/* Selection styling */
+::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Focus styling */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }

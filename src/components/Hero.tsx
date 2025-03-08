@@ -32,115 +32,134 @@ const Hero = () => {
     })
   };
 
+  // Subtle background animation
+  const backgroundVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 0.03,
+      transition: { 
+        duration: 2,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  // Info items with icons
+  const infoItems = [
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      ),
+      text: "Software Engineer"
+    },
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      ),
+      text: "Computer Science Student"
+    },
+    {
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      ),
+      text: "Cairo, Egypt 🇪🇬"
+    }
+  ];
+
   return (
-    <section className="py-16 md:py-24">
-      <div className="container-width">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-          <div className="md:w-2/3">
-            {/* Intro heading */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              custom={0}
-              variants={textVariants}
-              className="mb-4"
+    <section className="py-20 md:py-28 relative">
+      {/* Subtle background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div 
+          className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-primary opacity-0"
+          variants={backgroundVariants}
+          initial="hidden"
+          animate="visible"
+          style={{ filter: 'blur(80px)' }}
+        />
+      </div>
+
+      <div className="container-width relative z-10">
+        {/* Intro heading */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          custom={0}
+          variants={textVariants}
+          className="mb-5"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+            hi saif here 
+            <motion.span 
+              className="inline-block ml-2"
+              initial="initial"
+              animate={isWaving ? "wave" : "initial"}
+              variants={waveAnimation}
+              onHoverStart={() => setIsWaving(true)}
+              onHoverEnd={() => setTimeout(() => setIsWaving(false), 1000)}
+              whileHover={{ scale: 1.1 }}
             >
-              <h1 className="text-4xl font-bold tracking-tight">
-                hi saif here 
-                <motion.span 
-                  className="inline-block ml-2"
-                  initial="initial"
-                  animate={isWaving ? "wave" : "initial"}
-                  variants={waveAnimation}
-                  onHoverStart={() => setIsWaving(true)}
-                  onHoverEnd={() => setTimeout(() => setIsWaving(false), 1000)}
-                  whileHover={{ scale: 1.1 }}
-                >
-                  👋
-                </motion.span>
-              </h1>
-            </motion.div>
-            
-            {/* Description */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              custom={1}
-              variants={textVariants}
-              className="mb-6"
+              👋
+            </motion.span>
+          </h1>
+        </motion.div>
+        
+        {/* Info items with icons */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          custom={1}
+          variants={textVariants}
+          className="mb-8 space-y-3"
+        >
+          {infoItems.map((item, index) => (
+            <motion.div 
+              key={index}
+              className="flex items-center space-x-2 hover-lift"
+              whileHover={{ x: 3 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <p className="text-xl text-muted-foreground">
-                18-year-old <span className="line-through">game</span> software developer from Cairo, Egypt 🇪🇬
-              </p>
-              <p className="mt-4 text-muted-foreground">
-                I specialize in building modern web applications with React, Next.js, and TypeScript. My passion lies in creating beautiful, functional, and user-friendly interfaces that solve real-world problems.
-              </p>
-              <p className="mt-4 text-muted-foreground">
-                Currently exploring the world of full-stack development and always eager to learn new technologies and frameworks.
-              </p>
-            </motion.div>
-            
-            {/* Call to action */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              custom={2}
-              variants={textVariants}
-              className="mb-6"
-            >
-              <motion.button 
-                className="px-4 py-2 rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Ask the chatbot anything about me
-              </motion.button>
-            </motion.div>
-            
-            {/* Social links */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              custom={3}
-              variants={textVariants}
-              className="flex space-x-4"
-            >
-              <a href="#resume" className="text-foreground hover:text-muted-foreground transition-colors">Resume</a>
-              <a href="https://linkedin.com" className="text-foreground hover:text-muted-foreground transition-colors">LinkedIn</a>
-              <a href="https://github.com" className="text-foreground hover:text-muted-foreground transition-colors">GitHub</a>
-              <a href="mailto:contact@example.com" className="text-foreground hover:text-muted-foreground transition-colors">Email</a>
-            </motion.div>
-          </div>
-          
-          {/* Profile photo */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="md:w-1/3 flex justify-center md:justify-end"
-          >
-            <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-secondary relative">
-              {/* Replace with your photo */}
-              <div className="w-full h-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24 text-muted-foreground/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
+              <div className="flex-shrink-0">
+                {item.icon}
               </div>
-              
-              {/* Decorative elements */}
-              <motion.div 
-                className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary"
-                animate={{ y: [0, -5, 0] }}
-                transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-              />
-              <motion.div 
-                className="absolute -bottom-2 -left-2 w-6 h-6 rounded-full bg-primary/70"
-                animate={{ y: [0, 5, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, repeatType: "reverse", delay: 0.5 }}
-              />
-            </div>
-          </motion.div>
-        </div>
+              <span className="text-md text-muted-foreground">{item.text}</span>
+            </motion.div>
+          ))}
+        </motion.div>
+        
+        {/* Description */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          custom={2}
+          variants={textVariants}
+          className="mb-10"
+        >
+          <p className="text-muted-foreground max-w-md">
+            I love building web applications with modern technologies. Currently exploring the world of full-stack development and always eager to learn new things.
+          </p>
+        </motion.div>
+        
+        {/* Social links */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          custom={3}
+          variants={textVariants}
+          className="flex space-x-6"
+        >
+          <a href="#resume" className="animated-underline text-foreground hover:text-foreground transition-colors">Resume</a>
+          <a href="https://linkedin.com" className="animated-underline text-foreground hover:text-foreground transition-colors">LinkedIn</a>
+          <a href="https://github.com" className="animated-underline text-foreground hover:text-foreground transition-colors">GitHub</a>
+          <a href="mailto:contact@example.com" className="animated-underline text-foreground hover:text-foreground transition-colors">Email</a>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,79 +1,93 @@
-"use client";
-
 import React from 'react';
-import { motion } from 'framer-motion';
+
+type Skill = {
+  name: string;
+  level: number; // 1-5
+  category: 'frontend' | 'backend' | 'tools' | 'other';
+};
+
+const skills: Skill[] = [
+  // Frontend
+  { name: 'HTML/CSS', level: 5, category: 'frontend' },
+  { name: 'JavaScript', level: 5, category: 'frontend' },
+  { name: 'TypeScript', level: 4, category: 'frontend' },
+  { name: 'React', level: 5, category: 'frontend' },
+  { name: 'Next.js', level: 4, category: 'frontend' },
+  { name: 'Tailwind CSS', level: 4, category: 'frontend' },
+  
+  // Backend
+  { name: 'Node.js', level: 4, category: 'backend' },
+  { name: 'Express', level: 4, category: 'backend' },
+  { name: 'MongoDB', level: 3, category: 'backend' },
+  { name: 'PostgreSQL', level: 3, category: 'backend' },
+  { name: 'GraphQL', level: 3, category: 'backend' },
+  
+  // Tools
+  { name: 'Git', level: 4, category: 'tools' },
+  { name: 'Docker', level: 3, category: 'tools' },
+  { name: 'Jest', level: 3, category: 'tools' },
+  { name: 'CI/CD', level: 3, category: 'tools' },
+  
+  // Other
+  { name: 'Agile/Scrum', level: 4, category: 'other' },
+  { name: 'UI/UX Design', level: 3, category: 'other' },
+  { name: 'Responsive Design', level: 5, category: 'other' },
+];
+
+const SkillBar = ({ name, level }: { name: string; level: number }) => {
+  return (
+    <div className="mb-4">
+      <div className="flex justify-between mb-1">
+        <span className="font-medium">{name}</span>
+        <span className="text-sm text-gray-600 dark:text-gray-400">
+          {level}/5
+        </span>
+      </div>
+      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+        <div
+          className="bg-blue-600 h-2.5 rounded-full"
+          style={{ width: `${(level / 5) * 100}%` }}
+        ></div>
+      </div>
+    </div>
+  );
+};
 
 const Skills = () => {
-  const skillCategories = [
-    {
-      name: "Frontend",
-      skills: [
-        { name: "React", level: 90 },
-        { name: "Next.js", level: 85 },
-        { name: "TypeScript", level: 80 },
-        { name: "TailwindCSS", level: 95 },
-        { name: "HTML/CSS", level: 90 }
-      ]
-    },
-    {
-      name: "Backend",
-      skills: [
-        { name: "Node.js", level: 75 },
-        { name: "Express", level: 70 },
-        { name: "MongoDB", level: 65 },
-        { name: "SQL", level: 60 },
-        { name: "REST APIs", level: 80 }
-      ]
-    },
-    {
-      name: "Tools & Others",
-      skills: [
-        { name: "Git", level: 85 },
-        { name: "Figma", level: 70 },
-        { name: "Vercel", level: 80 },
-        { name: "Jest", level: 65 },
-        { name: "Responsive Design", level: 90 }
-      ]
-    }
-  ];
+  const frontendSkills = skills.filter(skill => skill.category === 'frontend');
+  const backendSkills = skills.filter(skill => skill.category === 'backend');
+  const toolsSkills = skills.filter(skill => skill.category === 'tools');
+  const otherSkills = skills.filter(skill => skill.category === 'other');
 
   return (
-    <section className="py-16" id="skills">
-      <div className="container-width">
-        <h2 className="text-2xl font-bold mb-8">skills & technologies</h2>
+    <section id="skills" className="py-16">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold mb-8 text-center">Skills</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {skillCategories.map((category, categoryIndex) => (
-            <motion.div 
-              key={categoryIndex}
-              className="border border-border rounded-lg p-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-xl font-bold mb-4">{category.name}</h3>
-              <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex}>
-                    <div className="flex justify-between mb-1">
-                      <span className="text-sm font-medium">{skill.name}</span>
-                      <span className="text-xs text-muted-foreground">{skill.level}%</span>
-                    </div>
-                    <div className="w-full bg-secondary rounded-full h-2">
-                      <motion.div 
-                        className="bg-primary h-2 rounded-full"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        transition={{ duration: 1, delay: 0.1 * skillIndex }}
-                        viewport={{ once: true }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div>
+            <h3 className="text-xl font-semibold mb-4">Frontend</h3>
+            {frontendSkills.map((skill) => (
+              <SkillBar key={skill.name} name={skill.name} level={skill.level} />
+            ))}
+            
+            <h3 className="text-xl font-semibold mb-4 mt-8">Backend</h3>
+            {backendSkills.map((skill) => (
+              <SkillBar key={skill.name} name={skill.name} level={skill.level} />
+            ))}
+          </div>
+          
+          <div>
+            <h3 className="text-xl font-semibold mb-4">Tools</h3>
+            {toolsSkills.map((skill) => (
+              <SkillBar key={skill.name} name={skill.name} level={skill.level} />
+            ))}
+            
+            <h3 className="text-xl font-semibold mb-4 mt-8">Other</h3>
+            {otherSkills.map((skill) => (
+              <SkillBar key={skill.name} name={skill.name} level={skill.level} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

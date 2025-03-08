@@ -26,43 +26,53 @@ const FeaturedProjects = () => {
   ];
 
   return (
-    <section className="py-16" id="projects">
+    <section className="py-20" id="projects">
       <div className="container-width">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-10">
           <h2 className="text-2xl font-bold">featured projects</h2>
-          <a href="#projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <motion.a 
+            href="#projects" 
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors animated-underline"
+            whileHover={{ x: 2 }}
+          >
             view more
-          </a>
+          </motion.a>
         </div>
         
-        <div className="space-y-12">
+        <div className="space-y-16">
           {projects.map((project, index) => (
             <motion.div 
               key={index}
-              className="border-t border-border pt-8"
+              className="border-t border-border pt-10 group"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-100px" }}
             >
-              <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-              <p className="text-muted-foreground mb-4">{project.description}</p>
+              <motion.h3 
+                className="text-xl font-bold mb-3 group-hover:text-primary transition-colors"
+                whileHover={{ x: 2 }}
+              >
+                {project.title}
+              </motion.h3>
+              <p className="text-muted-foreground mb-5 max-w-xl">{project.description}</p>
               
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 mb-5">
                 {project.tags.map((tag, i) => (
                   <span key={i} className="tag">{tag}</span>
                 ))}
               </div>
               
-              <div className="flex gap-4">
+              <div className="flex gap-5">
                 {project.links.map((link, i) => (
-                  <a 
+                  <motion.a 
                     key={i} 
                     href={link.url} 
-                    className="text-foreground hover:text-muted-foreground transition-colors"
+                    className="text-foreground hover:text-foreground transition-colors animated-underline"
+                    whileHover={{ y: -1 }}
                   >
                     {link.label}
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             </motion.div>
