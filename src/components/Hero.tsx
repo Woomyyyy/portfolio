@@ -2,9 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion, Variants } from 'framer-motion';
+import { useTheme } from './ThemeProvider';
 
 const Hero = () => {
   const [isWaving, setIsWaving] = useState(false);
+  const { theme } = useTheme();
 
   // Animation variants for the wave emoji
   const waveAnimation: Variants = {
@@ -211,19 +213,22 @@ const Hero = () => {
             variants={textVariants}
             className="mt-10 md:mt-0 flex flex-col space-y-6 md:space-y-7 items-start md:items-end"
           >
-            {/* Resume - with enhanced styling for better visual hierarchy */}
+            {/* Resume - with enhanced styling that responds to theme */}
             <motion.a 
               href="#resume" 
               className="group relative inline-flex items-center justify-center rounded-[8px] 
-                        bg-white/10 backdrop-blur-sm border border-white/10
+                        bg-gray-200 dark:bg-gray-800/40 backdrop-blur-sm
+                        border border-gray-300 dark:border-gray-700
                         px-5 py-2.5 md:px-6 md:py-3 font-medium text-base md:text-base
-                        transition-all duration-300 hover:bg-white/15 w-auto
-                        shadow-sm shadow-primary/5 hover:shadow-primary/10"
+                        transition-all duration-300
+                        hover:bg-gray-300 dark:hover:bg-gray-700 w-auto
+                        shadow hover:shadow-md"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <svg
-                className="w-5 h-5 mr-2.5 opacity-70 group-hover:opacity-100 transition-opacity"
+                className="w-5 h-5 mr-2.5 opacity-80 group-hover:opacity-100 transition-opacity
+                          text-gray-900 dark:text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -236,7 +241,9 @@ const Hero = () => {
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                 />
               </svg>
-              <span className="relative z-10 text-white/90 group-hover:text-white transition-colors tracking-wide">
+              <span className="relative z-10 text-gray-900 dark:text-white
+                             group-hover:text-black dark:group-hover:text-white
+                             transition-colors tracking-wide font-medium">
                 Resume
               </span>
             </motion.a>
